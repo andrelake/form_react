@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core';
 
 export default function Form() {
   return (
@@ -36,8 +35,12 @@ export default function Form() {
         fullWidth
       ></TextField>
 
-      <label>Newsletter</label>
-      <input type="checkbox"></input>
+      <FormControlLabel
+        control={
+          <Switch type="checkbox" name="newsletter" defaultChecked></Switch>
+        }
+        label="Newsletter"
+      ></FormControlLabel>
 
       <Button type="submit" variant="contained" color="secondary">
         Submit

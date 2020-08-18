@@ -4,13 +4,16 @@ import './App.css';
 
 import Form from './components/form/Form';
 
-import Container from '@material-ui/core/Container';
+import { Container, Typography } from '@material-ui/core';
+import 'fontsource-roboto';
 
 class App extends Component {
   render() {
     return (
       <Container component="article" maxWidth="sm">
-        <h1>Form</h1>
+        <Typography variant="h2" align="center">
+          Form
+        </Typography>
         <Form />
       </Container>
     );
