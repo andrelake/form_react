@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Button, TextField, Switch, FormControlLabel } from '@material-ui/core';
 
-export default function Form() {
+export default function Form({ handleSubmitForm, handleValidateCpf }) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [newsletter, setNewsletter] = useState(true);
+
+  const [errors, setErrors] = useState({ cpf: { valid: true, text: '' } });
+
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmitForm({ firstName, lastName, cpf, newsletter });
+      }}
+    >
       <TextField
+        value={firstName}
+        onChange={(e) => {
+          setFirstName(e.target.value);
+        }}
         type="text"
         id="firstname"
         label="First Name"
@@ -16,6 +32,10 @@ export default function Form() {
       ></TextField>
 
       <TextField
+        value={lastName}
+        onChange={(e) => {
+          setLastName(e.target.value);
+        }}
         type="text"
         id="lastname"
         label="Last Name"
@@ -26,6 +46,18 @@ export default function Form() {
       ></TextField>
 
       <TextField
+        value={cpf}
+        onChange={(e) => {
+          setCpf(e.target.value);
+        }}
+        onBlur={(e) => {
+          const isValid = handleValidateCpf(cpf);
+          setErrors({
+            cpf: isValid,
+          });
+        }}
+        error={!errors.cpf.valido}
+        helperText={errors.cpf.text}
         type="text"
         id="cpf"
         label="CPF"
@@ -37,7 +69,12 @@ export default function Form() {
 
       <FormControlLabel
         control={
-          <Switch type="checkbox" name="newsletter" defaultChecked></Switch>
+          <Switch
+            checked={newsletter}
+            onChange={(e) => setNewsletter(e.target.checked)}
+            type="checkbox"
+            name="newsletter"
+          ></Switch>
         }
         label="Newsletter"
       ></FormControlLabel>
